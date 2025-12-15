@@ -108,6 +108,14 @@ namespace GymManagementDAL.Migrations
                 nullable: false,
                 defaultValue: new DateOnly(1, 1, 1));
 
+            migrationBuilder.AlterColumn<decimal>(
+                name: "Weight",
+                table: "Members",
+                type: "decimal(18,2)",
+                nullable: false,
+                oldClrType: typeof(double),
+                oldType: "float");
+
             migrationBuilder.AlterColumn<string>(
                 name: "Photo",
                 table: "Members",
@@ -134,6 +142,14 @@ namespace GymManagementDAL.Migrations
                 oldType: "date",
                 oldNullable: true,
                 oldDefaultValueSql: "GETDATE()");
+
+            migrationBuilder.AlterColumn<decimal>(
+                name: "Height",
+                table: "Members",
+                type: "decimal(18,2)",
+                nullable: false,
+                oldClrType: typeof(double),
+                oldType: "float");
 
             migrationBuilder.AddColumn<DateOnly>(
                 name: "Created_At",
@@ -271,6 +287,14 @@ namespace GymManagementDAL.Migrations
                 type: "date",
                 nullable: true);
 
+            migrationBuilder.AlterColumn<double>(
+                name: "Weight",
+                table: "Members",
+                type: "float",
+                nullable: false,
+                oldClrType: typeof(decimal),
+                oldType: "decimal(18,2)");
+
             migrationBuilder.AlterColumn<string>(
                 name: "Photo",
                 table: "Members",
@@ -298,6 +322,14 @@ namespace GymManagementDAL.Migrations
                 oldClrType: typeof(DateOnly),
                 oldType: "date",
                 oldDefaultValueSql: "GETDATE()");
+
+            migrationBuilder.AlterColumn<double>(
+                name: "Height",
+                table: "Members",
+                type: "float",
+                nullable: false,
+                oldClrType: typeof(decimal),
+                oldType: "decimal(18,2)");
 
             migrationBuilder.AddColumn<DateOnly>(
                 name: "LastUpdate",

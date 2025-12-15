@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace GymManagementDAL.Enum
 {
-    internal enum BloodType
+    public enum BloodType
     {
         Aplus = 1,
         Aminus = 2,

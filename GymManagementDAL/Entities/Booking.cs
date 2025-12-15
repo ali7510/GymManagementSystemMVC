@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace GymManagementDAL.Entities
 {
-    internal class Booking : BaseEntity
+    public class Booking : BaseEntity
     {
         #region Members
         public int MemberId { get; set; }

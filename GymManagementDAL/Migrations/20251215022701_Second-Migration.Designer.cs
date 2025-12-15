@@ -12,7 +12,7 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace GymManagementDAL.Migrations
 {
     [DbContext(typeof(GymContext))]
-    [Migration("20251214191310_Second-Migration")]
+    [Migration("20251215022701_Second-Migration")]
     partial class SecondMigration
     {
         /// <inheritdoc />
@@ -87,8 +87,8 @@ namespace GymManagementDAL.Migrations
                     b.Property<DateOnly>("Created_At")
                         .HasColumnType("date");
 
-                    b.Property<double>("Height")
-                        .HasColumnType("float");
+                    b.Property<decimal>("Height")
+                        .HasColumnType("decimal(18,2)");
 
                     b.Property<string>("Note")
                         .HasColumnType("nvarchar(max)");
@@ -97,8 +97,8 @@ namespace GymManagementDAL.Migrations
                         .ValueGeneratedOnUpdateSometimes()
                         .HasColumnType("date");
 
-                    b.Property<double>("Weight")
-                        .HasColumnType("float");
+                    b.Property<decimal>("Weight")
+                        .HasColumnType("decimal(18,2)");
 
                     b.HasKey("Id");
 
