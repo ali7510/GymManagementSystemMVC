@@ -84,8 +84,8 @@ namespace GymManagementDAL.Migrations
                     b.Property<DateOnly>("Created_At")
                         .HasColumnType("date");
 
-                    b.Property<double>("Height")
-                        .HasColumnType("float");
+                    b.Property<decimal>("Height")
+                        .HasColumnType("decimal(18,2)");
 
                     b.Property<string>("Note")
                         .HasColumnType("nvarchar(max)");
@@ -94,8 +94,8 @@ namespace GymManagementDAL.Migrations
                         .ValueGeneratedOnUpdateSometimes()
                         .HasColumnType("date");
 
-                    b.Property<double>("Weight")
-                        .HasColumnType("float");
+                    b.Property<decimal>("Weight")
+                        .HasColumnType("decimal(18,2)");
 
                     b.HasKey("Id");
 

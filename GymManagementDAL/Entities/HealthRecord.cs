@@ -7,10 +7,10 @@ using System.Threading.Tasks;
 
 namespace GymManagementDAL.Entities
 {
-    internal class HealthRecord : BaseEntity
+    public class HealthRecord : BaseEntity
     {
-        public double Height { get; set; }
-        public double Weight { get; set; }
+        public decimal Height { get; set; }
+        public decimal Weight { get; set; }
         public BloodType BloodType { get; set; }
         public string? Note { get; set; }
 
