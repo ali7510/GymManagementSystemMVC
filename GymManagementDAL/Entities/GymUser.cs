@@ -17,7 +17,7 @@ namespace GymManagementDAL.Entities
         public DateOnly? DateOfBirth { get; set; }
         // join date which is created at from base entity, you should handle it in fluent api
         public Gender Gender { get; set; }
-        public Address? Address { get; set; }
+        public Address Address { get; set; } = null!;
 
 
     }

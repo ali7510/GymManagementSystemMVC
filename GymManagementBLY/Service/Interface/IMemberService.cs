@@ -9,14 +9,20 @@ using System.Threading.Tasks;
 
 namespace GymManagementBL.Service.Interface
 {
-    internal interface IMemberService
+    public interface IMemberService
     {
-        IQueryable<GetAllMembersViewModel> GetAllMembers();
+        public IQueryable<GetAllMembersViewModel> GetAllMembers();
 
         bool CreateMember(CreateMemberViewModel member);
 
         GetMemberDetailsViewModel? GetMemberDetails(int memberId);
 
         HealthRecordViewModel? GetMemberHealthDetails(int memberId);
+
+        public UpdateMemberViewModel? GetUpdateMember(int memberId);
+
+        public bool UpdateMember(int memberId, UpdateMemberViewModel member);
+
+        public bool DeleteMember(int memberId);
     }
 }

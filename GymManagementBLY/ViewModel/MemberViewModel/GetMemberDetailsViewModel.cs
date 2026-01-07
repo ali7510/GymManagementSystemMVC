@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace GymManagementBL.ViewModel.MemberViewModel
 {
-    internal class GetMemberDetailsViewModel
+    public class GetMemberDetailsViewModel
     {
         public string? Photo { get; set; }
         public string Name { get; set; } = null!;
@@ -15,7 +15,7 @@ namespace GymManagementBL.ViewModel.MemberViewModel
         public string Phone { get; set; } = null!;
         public string Gender { get; set; } = null!;
         public DateOnly? DateOfBirth { get; set; }
-        public DateOnly? MembershipStartDate { get; set; }
+        public DateTime? MembershipStartDate { get; set; }
         public DateTime? MembershipEndDate { get; set; }
         public int BuildinhNo { get; set; } = default!;
         public string Street { get; set; } = null!;

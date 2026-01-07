@@ -1,5 +1,7 @@
 ﻿using GymManagementDAL.Context;
 using GymManagementDAL.Entities;
+using GymManagementDAL.Repositories.Interface;
+using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
 using System.Linq;

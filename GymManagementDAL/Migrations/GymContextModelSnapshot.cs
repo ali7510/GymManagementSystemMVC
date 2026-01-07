@@ -30,14 +30,16 @@ namespace GymManagementDAL.Migrations
                     b.Property<int>("SessionId")
                         .HasColumnType("int");
 
-                    b.Property<DateOnly>("Created_At")
+                    b.Property<DateTime>("CreatedAt")
                         .ValueGeneratedOnAdd()
-                        .HasColumnType("date")
+                        .HasColumnType("datetime2")
                         .HasColumnName("BookingDate")
                         .HasDefaultValueSql("GETDATE()");
 
-                    b.Property<DateOnly>("Updated_At")
-                        .HasColumnType("date");
+                    b.Property<DateTime>("Updated_At")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("datetime2")
+                        .HasDefaultValueSql("GETDATE()");
 
                     b.Property<bool>("isAttended")
                         .HasColumnType("bit");
@@ -62,44 +64,19 @@ namespace GymManagementDAL.Migrations
                         .HasMaxLength(20)
                         .HasColumnType("varchar");
 
-                    b.Property<DateOnly>("Created_At")
-                        .HasColumnType("date");
+                    b.Property<DateTime>("CreatedAt")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("datetime2")
+                        .HasDefaultValueSql("GETDATE()");
 
-                    b.Property<DateOnly>("Updated_At")
-                        .HasColumnType("date");
+                    b.Property<DateTime>("Updated_At")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("datetime2")
+                        .HasDefaultValueSql("GETDATE()");
 
                     b.HasKey("Id");
 
                     b.ToTable("Categories");
-                });
-
-            modelBuilder.Entity("GymManagementDAL.Entities.HealthRecord", b =>
-                {
-                    b.Property<int>("Id")
-                        .HasColumnType("int");
-
-                    b.Property<int>("BloodType")
-                        .HasColumnType("int");
-
-                    b.Property<DateOnly>("Created_At")
-                        .HasColumnType("date");
-
-                    b.Property<decimal>("Height")
-                        .HasColumnType("decimal(18,2)");
-
-                    b.Property<string>("Note")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<DateOnly>("Updated_At")
-                        .ValueGeneratedOnUpdateSometimes()
-                        .HasColumnType("date");
-
-                    b.Property<decimal>("Weight")
-                        .HasColumnType("decimal(18,2)");
-
-                    b.HasKey("Id");
-
-                    b.ToTable("Members", (string)null);
                 });
 
             modelBuilder.Entity("GymManagementDAL.Entities.Member", b =>
@@ -110,10 +87,10 @@ namespace GymManagementDAL.Migrations
 
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
 
-                    b.Property<DateOnly>("Created_At")
+                    b.Property<DateTime>("CreatedAt")
                         .ValueGeneratedOnAdd()
-                        .HasColumnType("date")
-                        .HasColumnName("Join_Date")
+                        .HasColumnType("datetime2")
+                        .HasColumnName("JoinDate")
                         .HasDefaultValueSql("GETDATE()");
 
                     b.Property<DateOnly?>("DateOfBirth")
@@ -136,9 +113,8 @@ namespace GymManagementDAL.Migrations
                     b.Property<string>("Photo")
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<DateOnly>("Updated_At")
-                        .ValueGeneratedOnUpdateSometimes()
-                        .HasColumnType("date");
+                    b.Property<DateTime>("Updated_At")
+                        .HasColumnType("datetime2");
 
                     b.HasKey("Id");
 
@@ -153,17 +129,19 @@ namespace GymManagementDAL.Migrations
                     b.Property<int>("PlanId")
                         .HasColumnType("int");
 
-                    b.Property<DateOnly>("Created_At")
+                    b.Property<DateTime>("CreatedAt")
                         .ValueGeneratedOnAdd()
-                        .HasColumnType("date")
-                        .HasColumnName("StartedDate")
+                        .HasColumnType("datetime2")
+                        .HasColumnName("StartDate")
                         .HasDefaultValueSql("GETDATE()");
 
                     b.Property<DateTime>("EndDate")
                         .HasColumnType("datetime2");
 
-                    b.Property<DateOnly>("Updated_At")
-                        .HasColumnType("date");
+                    b.Property<DateTime>("Updated_At")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("datetime2")
+                        .HasDefaultValueSql("GETDATE()");
 
                     b.HasKey("MemberId", "PlanId");
 
@@ -180,10 +158,13 @@ namespace GymManagementDAL.Migrations
 
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
 
-                    b.Property<DateOnly>("Created_At")
-                        .HasColumnType("date");
+                    b.Property<DateTime>("CreatedAt")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("datetime2")
+                        .HasDefaultValueSql("GETDATE()");
 
                     b.Property<string>("Description")
+                        .IsRequired()
                         .HasMaxLength(200)
                         .HasColumnType("varchar");
 
@@ -201,8 +182,10 @@ namespace GymManagementDAL.Migrations
                     b.Property<decimal>("Price")
                         .HasColumnType("decimal(10,2)");
 
-                    b.Property<DateOnly>("Updated_At")
-                        .HasColumnType("date");
+                    b.Property<DateTime>("Updated_At")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("datetime2")
+                        .HasDefaultValueSql("GETDATE()");
 
                     b.HasKey("Id");
 
@@ -226,23 +209,28 @@ namespace GymManagementDAL.Migrations
                     b.Property<int>("Category_Id")
                         .HasColumnType("int");
 
-                    b.Property<DateOnly>("Created_At")
+                    b.Property<DateTime>("CreatedAt")
                         .ValueGeneratedOnAdd()
-                        .HasColumnType("date")
-                        .HasColumnName("StartDate")
+                        .HasColumnType("datetime2")
+                        .HasColumnName("CreateDate")
                         .HasDefaultValueSql("GETDATE()");
 
                     b.Property<string>("Description")
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<DateOnly?>("EndDate")
-                        .HasColumnType("date");
+                    b.Property<DateTime>("EndDate")
+                        .HasColumnType("datetime2");
+
+                    b.Property<DateTime>("StartDate")
+                        .HasColumnType("datetime2");
 
                     b.Property<int>("Trainer_Id")
                         .HasColumnType("int");
 
-                    b.Property<DateOnly>("Updated_At")
-                        .HasColumnType("date");
+                    b.Property<DateTime>("Updated_At")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("datetime2")
+                        .HasDefaultValueSql("GETDATE()");
 
                     b.HasKey("Id");
 
@@ -266,9 +254,9 @@ namespace GymManagementDAL.Migrations
 
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
 
-                    b.Property<DateOnly>("Created_At")
+                    b.Property<DateTime>("CreatedAt")
                         .ValueGeneratedOnAdd()
-                        .HasColumnType("date")
+                        .HasColumnType("datetime2")
                         .HasColumnName("HireDate")
                         .HasDefaultValueSql("GETDATE()");
 
@@ -292,8 +280,10 @@ namespace GymManagementDAL.Migrations
                     b.Property<int>("Speciality")
                         .HasColumnType("int");
 
-                    b.Property<DateOnly>("Updated_At")
-                        .HasColumnType("date");
+                    b.Property<DateTime>("Updated_At")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("datetime2")
+                        .HasDefaultValueSql("GETDATE()");
 
                     b.HasKey("Id");
 
@@ -319,17 +309,33 @@ namespace GymManagementDAL.Migrations
                     b.Navigation("Session");
                 });
 
-            modelBuilder.Entity("GymManagementDAL.Entities.HealthRecord", b =>
-                {
-                    b.HasOne("GymManagementDAL.Entities.Member", null)
-                        .WithOne("HealthRecord")
-                        .HasForeignKey("GymManagementDAL.Entities.HealthRecord", "Id")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-                });
-
             modelBuilder.Entity("GymManagementDAL.Entities.Member", b =>
                 {
+                    b.OwnsOne("GymManagementDAL.Entities.HealthRecord", "HealthRecord", b1 =>
+                        {
+                            b1.Property<int>("MemberId")
+                                .HasColumnType("int");
+
+                            b1.Property<int>("BloodType")
+                                .HasColumnType("int");
+
+                            b1.Property<decimal>("Height")
+                                .HasColumnType("decimal(18,2)");
+
+                            b1.Property<string>("Note")
+                                .HasColumnType("nvarchar(max)");
+
+                            b1.Property<decimal>("Weight")
+                                .HasColumnType("decimal(18,2)");
+
+                            b1.HasKey("MemberId");
+
+                            b1.ToTable("Members");
+
+                            b1.WithOwner()
+                                .HasForeignKey("MemberId");
+                        });
+
                     b.OwnsOne("GymManagementDAL.Entities.Address", "Address", b1 =>
                         {
                             b1.Property<int>("MemberId")
@@ -354,7 +360,11 @@ namespace GymManagementDAL.Migrations
                                 .HasForeignKey("MemberId");
                         });
 
-                    b.Navigation("Address");
+                    b.Navigation("Address")
+                        .IsRequired();
+
+                    b.Navigation("HealthRecord")
+                        .IsRequired();
                 });
 
             modelBuilder.Entity("GymManagementDAL.Entities.MemberPlan", b =>
@@ -421,7 +431,8 @@ namespace GymManagementDAL.Migrations
                                 .HasForeignKey("TrainerId");
                         });
 
-                    b.Navigation("Address");
+                    b.Navigation("Address")
+                        .IsRequired();
                 });
 
             modelBuilder.Entity("GymManagementDAL.Entities.Category", b =>
@@ -431,9 +442,6 @@ namespace GymManagementDAL.Migrations
 
             modelBuilder.Entity("GymManagementDAL.Entities.Member", b =>
                 {
-                    b.Navigation("HealthRecord")
-                        .IsRequired();
-
                     b.Navigation("Plans");
 
                     b.Navigation("Sessions");

@@ -20,7 +20,8 @@ namespace GymManagementDAL.EntityConfiguration
             });
 
             builder.HasOne(a=>a.Category).WithMany(a=>a.Category_Sessions).HasForeignKey(a => a.Category_Id);
-            builder.Property(a => a.Created_At).HasColumnName("StartDate").HasDefaultValueSql("GETDATE()");
+            builder.Property(a => a.CreatedAt).HasColumnName("CreateDate").HasDefaultValueSql("GETDATE()");
+            builder.Property(a => a.Updated_At).HasDefaultValueSql("GETDATE()");
             builder.HasOne(a=>a.Trainer).WithMany(a=>a.Trainer_Sessions).HasForeignKey(a => a.Trainer_Id);
         }
     }

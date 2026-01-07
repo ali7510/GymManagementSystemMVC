@@ -1,4 +1,5 @@
-﻿using System;
+﻿using GymManagementDAL.Enum;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -20,17 +21,17 @@ namespace GymManagementDAL.Entities
 
         // started at instead of created at
 
-        public string Status
+        public int Status
         {
             get
             {
                 if (EndDate > DateTime.Now)
                 {
-                    return "Expired";
+                    return (int)MembershipStatus.Active;
                 }
                 else
                 {
-                    return "Active";
+                    return (int)MembershipStatus.Expired;
                 }
             }
         }

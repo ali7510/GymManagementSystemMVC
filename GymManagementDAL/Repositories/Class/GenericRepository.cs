@@ -19,20 +19,12 @@ namespace GymManagementDAL.Repositories.Class
             _context = context;
         }
 
-        public bool Create(Entity x)
-        {
-            _context.Add(x);
-            return _context.SaveChanges() > 0;
-        }
+        public void Create(Entity x)=>_context.Set<Entity>().Add(x);
 
-        public bool Delete(Entity x)
-        {
-            _context.Set<Entity>().Remove(x);
-            return  _context.SaveChanges()> 0;
-        }
+        public void Delete(Entity x) => _context.Set<Entity>().Remove(x);
 
 
-        public IQueryable<Entity> GetAll(Func<Entity, bool> condition = null)
+        public IQueryable<Entity> GetAll(Func<Entity, bool> condition = null!)
         {
             List<Entity> list = new List<Entity>();
             if (condition == null)
@@ -47,15 +39,8 @@ namespace GymManagementDAL.Repositories.Class
 
         }
 
-        public Entity? GetById(int Id)
-        {
-            return _context.Set<Entity>().Find(Id);
-        }
+        public Entity? GetById(int Id)=>_context.Set<Entity>().Find(Id);
 
-        public bool Update(Entity x)
-        {
-            _context.Set<Entity>().Update(x);
-            return _context.SaveChanges() > 0;
-        }
+        public void Update(Entity x)=>_context.Set<Entity>().Update(x);
     }
 }

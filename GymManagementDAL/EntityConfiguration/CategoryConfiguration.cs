@@ -14,6 +14,8 @@ namespace GymManagementDAL.EntityConfiguration
         public void Configure(EntityTypeBuilder<Category> builder)
         {
             builder.Property(A=>A.CategoryName).HasColumnType("varchar").HasMaxLength(20).IsRequired();
+            builder.Property(a => a.CreatedAt).HasDefaultValueSql("GETDATE()");
+            builder.Property(a => a.Updated_At).HasDefaultValueSql("GETDATE()");
         }
     }
 }

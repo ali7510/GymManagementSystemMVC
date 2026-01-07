@@ -1,4 +1,9 @@
+using AutoMapper;
+using GymManagementBL;
+using GymManagementBL.Service.Class;
+using GymManagementBL.Service.Interface;
 using GymManagementDAL.Context;
+using GymManagementDAL.GymDbContextSeeding;
 using GymManagementDAL.Repositories.Class;
 using GymManagementDAL.Repositories.Interface;
 using Microsoft.EntityFrameworkCore;
@@ -23,10 +28,36 @@ namespace GymManagementPL
             });
 
             builder.Services.AddScoped(typeof(IGenericRepository<>), typeof(GenericRepository<>));
-            builder.Services.AddScoped<IPlanRepsitory, PlanRepository>();
+            //builder.Services.AddScoped<IPlanRepsitory, PlanRepository>();
+
+            builder.Services.AddScoped<IUnitOfWork, UnitOfWork>();
+            builder.Services.AddScoped<ISessionRepository, SessionRepository>();
+            builder.Services.AddScoped<IMemberService, MemberService>();
+            builder.Services.AddScoped<ITrainerService, TrainerService>();
+            builder.Services.AddAutoMapper(x => x.AddProfile(new MappingProfile()));
+            builder.Services.AddScoped<IAnalyticsService, AnalyticsService>();
 
 
             var app = builder.Build();
+            #region Data Seeding
+            //using var scope = app.Services.CreateScope();
+            //var dbcontext = scope.ServiceProvider.GetRequiredService<GymContext>();
+            //var pendingMigrtations = dbcontext.Database.GetPendingMigrations();
+            //if (pendingMigrtations?.Any() ?? false)
+            //{
+            //    dbcontext.Database.Migrate();
+            //}
+            //GymDbContextSeeding.SeedData(dbcontext, app.Environment.ContentRootPath);
+
+            using (var scope = app.Services.CreateScope())
+            {
+                var context = scope.ServiceProvider.GetRequiredService<GymContext>();
+                var env = scope.ServiceProvider.GetRequiredService<IWebHostEnvironment>();
+
+                GymDbContextSeeding.SeedData(context, env.ContentRootPath);
+            }
+
+            #endregion
 
             // Configure the HTTP request pipeline.
             if (!app.Environment.IsDevelopment())

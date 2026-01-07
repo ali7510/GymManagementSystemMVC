@@ -9,14 +9,14 @@ namespace GymManagementDAL.Repositories.Interface
 {
     public interface IGenericRepository<Entity> where Entity : BaseEntity, new()
     {
-        IQueryable<Entity> GetAll(Func<Entity, bool> condition = null);
+        IQueryable<Entity> GetAll(Func<Entity, bool> condition = null!);
 
         Entity? GetById(int Id);
 
-        bool Create(Entity x);
+        void Create(Entity x);
 
-        bool Update(Entity x);
+        void Update(Entity x);
 
-        bool Delete(Entity x);
+        void Delete(Entity x);
     }
 }

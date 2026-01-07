@@ -9,7 +9,7 @@ namespace GymManagementDAL.Entities
     public class BaseEntity
     {
         public int Id { get; set; }
-        public DateOnly Created_At { get; set; }
-        public DateOnly Updated_At { get; set; }
+        public DateTime CreatedAt { get; set; }
+        public DateTime Updated_At { get; set; }
     }
 }
