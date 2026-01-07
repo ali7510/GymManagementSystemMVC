@@ -16,7 +16,9 @@ namespace GymManagementDAL.EntityConfiguration
             builder.Property(a => a.Name).HasColumnType("varchar").HasMaxLength(50).IsRequired();
             builder.Property(a=>a.Description).HasColumnType("varchar").HasMaxLength(200);
             builder.Property(a=>a.Price).HasColumnType("decimal(10,2)").IsRequired();
-            
+            builder.Property(a => a.CreatedAt).HasDefaultValueSql("GETDATE()");
+            builder.Property(a => a.Updated_At).HasDefaultValueSql("GETDATE()");
+
             builder.ToTable(tb=>tb.HasCheckConstraint("PlanDurationWithinRange", "DurationDays > 0 AND DurationDays < 361"));
         }
     }

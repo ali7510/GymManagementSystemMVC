@@ -13,6 +13,7 @@ namespace GymManagementDAL.EntityConfiguration
     {
         public void Configure(EntityTypeBuilder<T> builder)
         {
+            builder.Ignore(x=>x.CreatedAt);
             builder.Property(a=>a.Name).HasColumnType("varchar").HasMaxLength(50).IsRequired();
             builder.Property(a => a.Email).HasColumnType("varcahr").HasMaxLength(100);
             builder.Property(a => a.Phone).HasColumnType("varchar").HasMaxLength(11);

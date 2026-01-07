@@ -13,7 +13,8 @@ namespace GymManagementDAL.EntityConfiguration
     {
         public void Configure(EntityTypeBuilder<Trainer> builder)
         {
-            builder.Property(a=>a.Created_At).HasColumnName("HireDate").HasDefaultValueSql("GETDATE()");
+            builder.Property(a=>a.CreatedAt).HasColumnName("HireDate").HasDefaultValueSql("GETDATE()");
+            builder.Property(a=>a.Updated_At).HasDefaultValueSql("GETDATE()");
         }
     }
 }
