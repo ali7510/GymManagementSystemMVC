@@ -41,6 +41,20 @@ namespace GymManagementBL
                     dest.Address.Street = src.Street;
                     dest.Updated_At = DateTime.Now;
                 });
+
+            CreateMap<CreateTrainerViewModel, Trainer>()
+                .ForMember(dest=>dest.Name, opt=>opt.MapFrom(src=>src.Name))
+                .ForMember(dest=>dest.Phone, opt=>opt.MapFrom(src=>src.Phone))
+                .ForMember(dest=>dest.Email, opt=>opt.MapFrom(src=>src.Email))
+                .ForMember(dest=>dest.DateOfBirth, opt=>opt.MapFrom(src=>src.DateOfBirth))
+                .ForMember(dest=>dest.Speciality, opt=>opt.MapFrom(src=>src.Speciality))
+                .ForMember(dest=>dest.Gender, opt=>opt.MapFrom(src=>src.Gender))
+                .ForMember(dest => dest.Address, opt => opt.MapFrom(src => new Address
+                 {
+                     BuildingNo = src.BuildingNumber,
+                     Street = src.Street,
+                     City = src.City
+                 }));
         }
 
         private void SessionMappping()

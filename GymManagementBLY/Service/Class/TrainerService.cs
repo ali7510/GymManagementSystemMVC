@@ -21,16 +21,11 @@ namespace GymManagementBL.Service.Class
             try
             {
                 var Repo = _unitOfWork.GetRepository<Trainer>();
-
                 if (IsEmailExists(createTrainer.Email) || IsPhoneExists(createTrainer.Phone)) return false;
                 var TrainerEntity = _mapper.Map<CreateTrainerViewModel, Trainer>(createTrainer);
-
-
                 Repo.Create(TrainerEntity);
 
                 return _unitOfWork.SaveChange() > 0;
-
-
             }
             catch (Exception)
             {
@@ -94,13 +89,13 @@ namespace GymManagementBL.Service.Class
         #region Helper Methods
         private bool IsEmailExists(string email)
         {
-            var existing = _unitOfWork.GetRepository<Trainer>().GetAll(
+            bool existing = _unitOfWork.GetRepository<Trainer>().GetAll(
                 m => m.Email == email).Any();
             return existing;
         }
         private bool IsPhoneExists(string phone)
         {
-            var existing = _unitOfWork.GetRepository<Trainer>().GetAll(
+            bool existing = _unitOfWork.GetRepository<Trainer>().GetAll(
                 m => m.Phone == phone).Any();
             return existing;
         }
