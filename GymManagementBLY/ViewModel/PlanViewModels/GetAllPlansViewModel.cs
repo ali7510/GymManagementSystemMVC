@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace GymManagementBL.ViewModel.PlanViewModels
 {
-    internal class GetAllPlansViewModel
+    public class GetAllPlansViewModel
     {
         public int Id { get; set; }
         public string Name { get; set; } = null!;

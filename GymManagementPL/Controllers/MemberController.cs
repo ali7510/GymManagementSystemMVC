@@ -111,23 +111,18 @@ namespace GymManagementPL.Controllers
             return RedirectToAction(nameof(Index));
         }
 
-        public IActionResult Delete(int id)
+        public IActionResult Delete([FromRoute]int id)
         {
             if (id <= 0)
             {
                 TempData["ErrorMessage"] = "Invalid Member Id";
+                return RedirectToAction(nameof(Index));
             }
             else
             {
-                var member = _memberService.GetMemberDetails(id);
-                if (member is null)
-                {
-                    TempData["ErrorMessage"] = "No member with this Id";
-                    return RedirectToAction(nameof(Index));
-                }
+                ViewBag.MemberId = id;
+                return View(nameof(Delete));
             }
-            ViewBag.MemberId = id;
-            return View(nameof(Delete));
         }
 
         [HttpPost]

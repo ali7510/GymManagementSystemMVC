@@ -35,7 +35,7 @@ namespace GymManagementBL.Service.Class
         public IEnumerable<TrainerViewModel> GetAllTrainers()
         {
             var Trainers = _unitOfWork.GetRepository<Trainer>().GetAll();
-            if (Trainers is null || !Trainers.Any()) return [];
+            if (Trainers is null || !Trainers.Any()) return [] ;
 
             var mappedTrainers = _mapper.Map<IEnumerable<Trainer>, IEnumerable<TrainerViewModel>>(Trainers);
             return mappedTrainers;

@@ -1,8 +1,11 @@
 ﻿using AutoMapper;
+using AutoMapper.QueryableExtensions;
 using GymManagementBL.Service.Interface;
 using GymManagementBL.ViewModel.SessionViewModels;
+using GymManagementBL.ViewModel.TrainerViewModels;
 using GymManagementDAL.Entities;
 using GymManagementDAL.Repositories.Interface;
+using GymManagmentBLL.ViewModels.SessionViewModel;
 using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
@@ -12,7 +15,7 @@ using System.Threading.Tasks;
 
 namespace GymManagementBL.Service.Class
 {
-    internal class SessionService : ISessionService
+    public class SessionService : ISessionService
     {
         private readonly IUnitOfWork _unitOfWork;
         private readonly IMapper _mapper;
@@ -27,15 +30,24 @@ namespace GymManagementBL.Service.Class
         {
             try
             {
-                if (!CategoryIsExist(session.CategoryId) || !TrainerIsExist(session.TrainerId) || !IsDateValid(session)) return false;
+                if (!CategoryIsExist(session.CategoryId))
+                    throw new Exception("Category does not exist");
+
+                if (!TrainerIsExist(session.TrainerId))
+                    throw new Exception("Trainer does not exist");
+
+                if (!IsDateValid(session))
+                    throw new Exception("Invalid session date");
                 if (session.Capacity > 25 || session.Capacity < 0) return false;
 
                 var sessionEntity = _mapper.Map<CreateSessionViewModel, Session>(session);
+                if(sessionEntity is null) throw new Exception("Session Mapping failed");
                 _unitOfWork.GetRepository<Session>().Create(sessionEntity);
                 return _unitOfWork.SaveChange() > 0;
             }
-            catch
+            catch(Exception ex)
             {
+                Console.WriteLine(ex.Message);
                 return false;
             }
         }
@@ -56,12 +68,27 @@ namespace GymManagementBL.Service.Class
             //    AvailableSlots = s.Capacity - _unitOfWork.SessionRepository.GetBookedSlotsCount(s.Id)
             //});
 
-            var mappedSessions = _mapper.Map<IQueryable<Session>, IQueryable<SessionViewModel>>(sessions);
-            foreach(var session in mappedSessions)
+            var mappedSessions = sessions.ProjectTo<SessionViewModel>(_mapper.ConfigurationProvider);
+
+            foreach (var session in mappedSessions)
             {
                 session.AvailableSlots = session.Capacity - _unitOfWork.SessionRepository.GetBookedSlotsCount(session.Id);
             }
             return mappedSessions;
+        }
+
+        public IQueryable<TrainerSelectViewModel> GetTrainerForDropDown()
+        {
+            var query = _unitOfWork.GetRepository<Trainer>().GetAll();
+
+            return query.ProjectTo<TrainerSelectViewModel>(_mapper.ConfigurationProvider).AsQueryable();
+        }
+
+        public IQueryable<CategorySelectViewModel> GetCategoryForDropDown()
+        {
+            var query = _unitOfWork.GetRepository<Category>().GetAll();
+
+            return query.ProjectTo<CategorySelectViewModel>(_mapper.ConfigurationProvider).AsQueryable();
         }
 
         public SessionViewModel? GetSessionById(int sessionid)
@@ -115,7 +142,6 @@ namespace GymManagementBL.Service.Class
                 var updatedSession = _unitOfWork.SessionRepository.GetById(sessionId);
                 if (updatedSession is null || !IsSessionAvailableToUpdate(updatedSession)) return false;
                 if (!TrainerIsExist(updatedSession.Trainer_Id) || !CategoryIsExist(updatedSession.Category_Id)) return false;
-
                 _mapper.Map(session, updatedSession);
                 updatedSession.Updated_At = DateTime.Now;
                 _unitOfWork.GetRepository<Session>().Update(updatedSession);
@@ -131,13 +157,13 @@ namespace GymManagementBL.Service.Class
         private bool CategoryIsExist(int CategoryId)
         {
             var isExist = _unitOfWork.GetRepository<Category>().GetById(CategoryId);
-            if (isExist == null) return false;
+            if (isExist is null) return false;
             return true;
         }
         private bool TrainerIsExist(int TrainerId)
         {
-            var isExist = _unitOfWork.GetRepository<Category>().GetById(TrainerId);
-            if (isExist == null) return false;
+            var isExist = _unitOfWork.GetRepository<Trainer>().GetById(TrainerId);
+            if (isExist is null) return false;
             return true;
         }
 
@@ -151,8 +177,6 @@ namespace GymManagementBL.Service.Class
             if (session is null) return false;
             // if session is complete
             if (session.EndDate < DateTime.Now) return false;
-            // is session started
-            if (session.StartDate <= DateTime.Now) return false;
             // if sessin doesn't have booking slots
             var hasActiveBooking = _unitOfWork.SessionRepository.GetBookedSlotsCount(session.Id) > 0;
             if (hasActiveBooking) return true;

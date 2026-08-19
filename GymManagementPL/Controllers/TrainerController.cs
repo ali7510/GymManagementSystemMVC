@@ -22,6 +22,7 @@ namespace GymManagementPL.Controllers
             if (Trainers is null || !Trainers.Any())
             {
                 TempData["ErrorMessage"] = "No Trainers Available";
+                return View("Index");
 
             }
             return View(Trainers);

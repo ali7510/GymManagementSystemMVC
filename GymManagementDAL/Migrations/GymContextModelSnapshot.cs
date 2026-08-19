@@ -30,6 +30,13 @@ namespace GymManagementDAL.Migrations
                     b.Property<int>("SessionId")
                         .HasColumnType("int");
 
+                    b.Property<string>("BookingStatus")
+                        .IsRequired()
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("nvarchar(max)")
+                        .HasDefaultValue("Upcoming")
+                        .HasColumnName("Status");
+
                     b.Property<DateTime>("CreatedAt")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("datetime2")
@@ -42,7 +49,9 @@ namespace GymManagementDAL.Migrations
                         .HasDefaultValueSql("GETDATE()");
 
                     b.Property<bool>("isAttended")
-                        .HasColumnType("bit");
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("bit")
+                        .HasDefaultValue(false);
 
                     b.HasKey("MemberId", "SessionId");
 
@@ -111,6 +120,7 @@ namespace GymManagementDAL.Migrations
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("Photo")
+                        .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<DateTime>("Updated_At")

@@ -17,6 +17,9 @@ namespace GymManagementDAL.EntityConfiguration
             builder.Property(a => a.CreatedAt).HasColumnName("BookingDate").HasDefaultValueSql("GETDATE()");
             builder.Property(a => a.Updated_At).HasDefaultValueSql("GETDATE()");
             builder.Ignore(a => a.Id);
+            builder.Property(a=>a.isAttended).HasDefaultValue(false);
+            builder.Property(a=>a.BookingStatus).HasColumnName("Status").HasDefaultValue(BookingStatus.Upcoming);
+            builder.Property(a => a.BookingStatus).HasConversion<string>();
         }
     }
 }
