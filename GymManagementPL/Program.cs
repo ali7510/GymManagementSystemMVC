@@ -1,7 +1,9 @@
 using AutoMapper;
 using GymManagementBL;
 using GymManagementBL.Service.Class;
+using GymManagementBL.Service.Class.AttachmentService;
 using GymManagementBL.Service.Interface;
+using GymManagementBL.Service.Interface.AttachmentService;
 using GymManagementDAL.Context;
 using GymManagementDAL.GymDbContextSeeding;
 using GymManagementDAL.Repositories.Class;
@@ -34,9 +36,13 @@ namespace GymManagementPL
             builder.Services.AddScoped<ISessionRepository, SessionRepository>();
             builder.Services.AddScoped<IMemberService, MemberService>();
             builder.Services.AddScoped<ITrainerService, TrainerService>();
+            builder.Services.AddScoped<IPlanService, PlanService>();
+            builder.Services.AddScoped<ISessionService, SessionService>();
             builder.Services.AddAutoMapper(x => x.AddProfile(new MappingProfile()));
             builder.Services.AddScoped<IAnalyticsService, AnalyticsService>();
-
+            builder.Services.AddScoped<IAttachmentService, AttachmentService>();
+            builder.Services.AddScoped<IMemberPlanService, MemberPlanService>();
+            builder.Services.AddScoped<IMemberSessionService, MemberSessionService>();
 
             var app = builder.Build();
             #region Data Seeding

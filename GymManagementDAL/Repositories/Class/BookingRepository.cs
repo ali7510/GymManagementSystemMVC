@@ -1,6 +1,7 @@
 ﻿using GymManagementDAL.Context;
 using GymManagementDAL.Entities;
 using GymManagementDAL.Repositories.Interface;
+using Microsoft.Identity.Client;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -13,6 +14,8 @@ namespace GymManagementDAL.Repositories.Class
     {
         public BookingRepository(GymContext context) : base(context)
         {
+
+            
         }
     }
 }

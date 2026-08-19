@@ -20,5 +20,7 @@ namespace GymManagementDAL.Entities
         // Booking date instead of created at
 
         public bool isAttended { get; set; }
+
+        public BookingStatus BookingStatus { get; set; }
     }
 }

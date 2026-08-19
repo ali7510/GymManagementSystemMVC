@@ -13,7 +13,7 @@ using System.Threading.Tasks;
 
 namespace GymManagementBL.Service.Class
 {
-    internal class PlanService : IPlanService
+    public class PlanService : IPlanService
     {
         private readonly IUnitOfWork _unitOfWork;
         public PlanService(IUnitOfWork unitOfWork)
@@ -32,7 +32,7 @@ namespace GymManagementBL.Service.Class
                 DurationDays = p.DurationDays,
                 Price = p.Price,
                 IsActive = p.IsActive
-            });
+            }).AsQueryable();
         }
 
         public GetAllPlansViewModel GetPlanById(int id)

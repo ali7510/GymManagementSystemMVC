@@ -11,11 +11,11 @@ namespace GymManagementDAL.Entities
     {
         #region Members
         public int MemberId { get; set; }
-        public Member? Member { get; set; }
+        public Member Member { get; set; } = null!;
         #endregion
         #region Plans
         public int PlanId { get; set; }
-        public Plan? Plan { get; set; }
+        public Plan Plan { get; set; } = null!;
         #endregion
         public DateTime EndDate { get; set; }
 

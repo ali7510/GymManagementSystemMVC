@@ -1,4 +1,5 @@
 ﻿using GymManagementBL.ViewModel.SessionViewModels;
+using GymManagmentBLL.ViewModels.SessionViewModel;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -7,7 +8,7 @@ using System.Threading.Tasks;
 
 namespace GymManagementBL.Service.Interface
 {
-    internal interface ISessionService
+    public interface ISessionService
     {
         IQueryable<SessionViewModel> GetAllSessions();
 
@@ -20,6 +21,10 @@ namespace GymManagementBL.Service.Interface
         bool UpdateSession(int sessionId, UpdateSessionViewModel session);
 
         bool DeleteSession(int sessionId);
+
+        public IQueryable<TrainerSelectViewModel> GetTrainerForDropDown();
+
+        public IQueryable<CategorySelectViewModel> GetCategoryForDropDown();
 
 
 

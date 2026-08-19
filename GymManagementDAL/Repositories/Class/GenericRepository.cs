@@ -26,17 +26,16 @@ namespace GymManagementDAL.Repositories.Class
 
         public IQueryable<Entity> GetAll(Func<Entity, bool> condition = null!)
         {
-            List<Entity> list = new List<Entity>();
+            IQueryable<Entity> list;
             if (condition == null)
             {
-                list = _context.Set<Entity>().AsNoTracking().ToList();
+                list = _context.Set<Entity>().AsNoTracking().AsQueryable();
             }
             else
             {
-                list = _context.Set<Entity>().AsNoTracking().Where(condition).ToList();
+                list = _context.Set<Entity>().AsNoTracking().Where(condition).AsQueryable();
             }
-            return list.AsQueryable();
-
+            return list;
         }
 
         public Entity? GetById(int Id)=>_context.Set<Entity>().Find(Id);
